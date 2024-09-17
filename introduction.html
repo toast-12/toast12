@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Animation</title>
+    <title>Image Zoom with Circle</title>
     <style>
         body {
             margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
+        img {
+            width: 300px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        img.zoom {
+            transform: scale(2);
         }
 
         .circle {
@@ -24,38 +29,42 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background-color: rgba(0, 0, 255, 0.5);
+            background-color: rgba(0, 0, 255, 0.5); 
             transform: scale(0); 
-            animation: expand 1s ease forwards;
+            animation: expand 0.5s ease forwards;
         }
 
         @keyframes expand {
             to {
                 transform: scale(10);
-                opacity: 0;
+                opacity: 0; 
             }
         }
     </style>
 </head>
 <body>
 
-    <button onclick="createCircle(event)">Click me</button>
+    <img src="img/Frame 6.png" alt="Sample Image" onclick="zoomImage(event)">
 
     <script>
-        function createCircle(event) {
+        function zoomImage(event) {
+            const img = event.target;
+            img.classList.toggle('zoom');
+
             const circle = document.createElement('div');
             circle.classList.add('circle');
-            
+
             const x = event.clientX;
             const y = event.clientY;
-            circle.style.left = `${x - 50}px`;
+            circle.style.left = `${x - 50}px`; 
             circle.style.top = `${y - 50}px`;
 
             document.body.appendChild(circle);
 
             setTimeout(() => {
                 circle.remove();
-            }, 1000); 
+            }, 500); 
+        }
     </script>
 
 </body>
